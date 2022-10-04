@@ -15,13 +15,13 @@ import React from "react";
 // }
 
 type ResultsProps = {
-  data: any;
+  data: object;
 };
 
 const Results = ({ data }: ResultsProps) => {
   return (
     <section>
-      <pre>{data ? JSON.stringify(data, undefined, 2) : null}</pre>
+      <pre>{JSON.stringify(data, undefined, 2)}</pre>
     </section>
   );
 };
