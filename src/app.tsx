@@ -10,13 +10,13 @@ import Form from "./components/form";
 import Results from "./components/results";
 
 type AppState = {
-  data: any;
+  data: object;
   requestParams: any;
 };
 
 export default class App extends React.Component {
   state: AppState = {
-    data: null,
+    data: {},
     requestParams: {},
   };
 
