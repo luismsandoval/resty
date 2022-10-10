@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./app.scss";
 
@@ -9,18 +9,12 @@ import Footer from "./components/footer";
 import Form from "./components/form";
 import Results from "./components/results";
 
-type AppState = {
-  data: object;
-  requestParams: any;
-};
+ 
+const App = () => {
+  const [data, setData] = useState({});
+  const [requestParams, setRequestParams] = useState({});
 
-export default class App extends React.Component {
-  state: AppState = {
-    data: {},
-    requestParams: {},
-  };
-
-  callApi = (requestParams: any) => {
+  const callApi = (requestParams: any) => {
     // mock output
     const data = {
       count: 2,
@@ -29,19 +23,20 @@ export default class App extends React.Component {
         { name: "fake thing 2", url: "http://fakethings.com/2" },
       ],
     };
-    this.setState({ data, requestParams });
+    setData(data);
+    setRequestParams(requestParams);
   };
 
-  render() {
-    return (
-      <>
-        <Header />
-        <div>Request Method: {this.state.requestParams.method}</div>
-        <div>URL: {this.state.requestParams.url}</div>
-        <Form handleApiCall={this.callApi} />
-        <Results data={this.state.data} />
-        <Footer />
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <Header />
+      <div>Request Method: {requestParams?.method}</div>
+      <div>URL: {requestParams?.url}</div>
+      <Form handleApiCall={callApi} />
+      <Results data={data} />
+      <Footer />
+    </>
+  );
+};
+
+export default App;

@@ -5,9 +5,11 @@ import "./form.scss";
 const Form = ({ handleApiCall }: any) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+
+    const target = e.target as HTMLFormElement;
     const formData = {
       method: "GET",
-      url: "https://pokeapi.co/api/v2/pokemon",
+      url: (target[0] as HTMLInputElement).value,
     };
     return handleApiCall(formData);
   };
