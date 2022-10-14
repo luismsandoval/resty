@@ -1,5 +1,5 @@
 type ResultsProps = {
-  data: object;
+  data: object | undefined;
 };
 
 export const Results = ({ data }: ResultsProps) => {
