@@ -2,12 +2,10 @@ type ResultsProps = {
   data: object;
 };
 
-const Results = ({ data }: ResultsProps) => {
+export const Results = ({ data }: ResultsProps) => {
   return (
     <section>
-      <pre>{JSON.stringify(data, undefined, 2)}</pre>
+      <pre>{data ? JSON.stringify(data, undefined, 2) : null}</pre>
     </section>
   );
 };
-
-export default Results;

@@ -6,10 +6,10 @@ const {
   screen,
 } = require("@testing-library/react");
 
-const Header = require("./components/header");
-const Footer = require("./components/footer");
-const Form = require("./components/form");
-const Results = require("./components/results");
+const {Header} = require("./components/header");
+const {Footer} = require("./components/footer");
+const {Form} = require("./components/form");
+const {Results} = require("./components/results");
 
 afterEach(cleanup);
 
