@@ -1,15 +1,10 @@
-const { React, createElement } = require("react");
-const {
-  render,
-  fireEvent,
-  cleanup,
-  screen,
-} = require("@testing-library/react");
+import { createElement } from "react";
+import { render, cleanup, screen } from "@testing-library/react";
 
-const {Header} = require("./components/header");
-const {Footer} = require("./components/footer");
-const {Form} = require("./components/form");
-const {Results} = require("./components/results");
+import { Header } from "./components/header";
+import { Footer } from "./components/footer";
+import { Form } from "./components/form";
+import { Results } from "./components/results";
 
 afterEach(cleanup);
 
@@ -18,27 +13,27 @@ describe("component tests", () => {
     let header = createElement(Header);
     render(header);
     expect(header).toBeTruthy();
-    expect(screen.queryByText("RESTy")).toBeTruthy();
+    expect(screen.getByText("RESTy")).toBeTruthy();
   });
 
   it("renders the footer component", () => {
     let footer = createElement(Footer);
     render(footer);
     expect(footer).toBeTruthy();
-    expect(screen.queryByText("2022")).toBeTruthy();
+    expect(screen.getByText("2022")).toBeTruthy();
   });
 
   it("renders the form component", () => {
     let form = createElement(Form);
     render(form);
     expect(form).toBeTruthy();
-    expect(screen.queryByText("URL:")).toBeTruthy();
+    expect(screen.getByText("URL:")).toBeTruthy();
   });
 
   it("renders the results component", () => {
     let results = createElement(Results);
     render(results);
     expect(results).toBeTruthy();
-    expect(screen.queryByText("results")).toBeTruthy();
+    expect(screen.getByText("results")).toBeTruthy();
   });
 });

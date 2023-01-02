@@ -8,6 +8,9 @@ import { Header } from "./components/header";
 import { Footer } from "./components/footer";
 import { Form } from "./components/form";
 import { Results } from "./components/results";
+import History from "./components/history/history";
+import LeftSidebar from "./components/results/LeftSidebar";
+import RightSidebar from "./components/history/RightSidebar";
 
 interface AppState {
   method: "GET" | "POST" | "PUT";
@@ -44,7 +47,7 @@ export const setURL = (state: AppState, url: string) => {
 export const setResponse = (state: AppState, response: object) => {
   state.response = response;
   return state;
-}
+};
 
 export const dispatchAction = (
   state: AppState,
@@ -64,12 +67,28 @@ export const dispatchAction = (
   }
 };
 
+const historyReducer = (state, action: { action: string; body: unknown }) => {
+  switch (action.action) {
+    case "history":
+      return {
+        ...state,
+        history: [...state.history, action.body],
+      };
+    default:
+      return state;
+  }
+};
+
 const App = () => {
   const [state, dispatch] = useReducer(dispatchAction, {
     method: "PUT",
     url: "http://localhost:3000",
     body: undefined,
     response: undefined,
+  });
+
+  const [historyState, historyDispatch] = useReducer(historyReducer, {
+    history: [],
   });
 
   const updateBodyIfNotGet = (body: object) => {
@@ -85,20 +104,19 @@ const App = () => {
     dispatch({ action: "response", body: response });
   };
 
-  // const [data, setData] = useState({});
-  // const [requestParams, setRequestParams] = useState({ method: "", url: "" });
+  const updateHistory = (response: object) => {
+    historyDispatch({ action: "history", body: response });
+  };
 
   const callApi = async (request: any) => {
     const response = await fetch(request.url, { method: request.method });
     let parsed = await response.json();
     let data = { parsed, response };
+    updateHistory(data);
     updateBodyIfNotGet(data);
     updateMethod(request.method);
     updateURL(request.url);
     updateResponse(data);
-    console.log(state);
-    // setData(data);
-    // setRequestParams(request);
   };
 
   return (
@@ -107,7 +125,12 @@ const App = () => {
       <div>Request Method: {state?.method}</div>
       <div>URL: {state?.url}</div>
       <Form handleApiCall={callApi} />
-      <Results data={state.body} />
+      <LeftSidebar>
+        <Results data={state.response} />
+      </LeftSidebar>
+      <RightSidebar>
+        <History history={historyState.history} />
+      </RightSidebar>
       <Footer />
     </>
   );

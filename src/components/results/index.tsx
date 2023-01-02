@@ -4,8 +4,8 @@ type ResultsProps = {
 
 export const Results = ({ data }: ResultsProps) => {
   return (
-    <section>
-      <pre>{data ? JSON.stringify(data, undefined, 2) : null}</pre>
-    </section>
+      <section>
+        <pre>{data ? JSON.stringify(data, undefined, 2) : null}</pre>
+      </section>
   );
 };
